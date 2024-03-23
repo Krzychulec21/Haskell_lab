@@ -77,7 +77,10 @@ sum1n = sum [1 / n | n <- [1..100]]
 
 -- Iloczyn od 1 do 50 liczb postaci (1+n)/(2+n)
 prod1n2n :: Double
-prod1n2n = product [(1 + n) / (2 + n) | n <- [1..50]]
+-- prod1n2n = product [(1 + n) / (2 + n) | n <- [1..50]]
+
+prod1n2n = product (map (\n -> (1 + n) / (2 + n)) [1..50])
+
 
 -- Suma od 1 do 1000 liczb postaci 1/(i^2)
 sum1i2 :: Double

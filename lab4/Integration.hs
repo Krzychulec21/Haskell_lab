@@ -1,7 +1,7 @@
 module Integration where
 
 rectangleRule :: (Float -> Float) -> Float -> Float -> Int -> Float
-rectangleRule (f) a b n = sum [f (a + fromIntegral i * h) * h | i <- [0..n-1]]
+rectangleRule (f) a b n = h * sum [f point | point <- points]
   where
     h = (b - a) / fromIntegral(n)
     points = [a + fromIntegral(i) * h | i <- [1 .. n]]

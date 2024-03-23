@@ -11,7 +11,8 @@ factorial 0 = 1
 factorial n = n * factorial (n - 1)
 
 binomialCoefficient :: Integer -> Integer -> Integer
-binomialCoefficient n k = factorial n `div` (factorial k * factorial (n-k))
+binomialCoefficient n k | k >= 0 && k <= n = factorial n `div` (factorial k * factorial (n-k))
+                        | otherwise = undefined
 
 
 factorial2 :: Integer -> Integer
@@ -25,7 +26,8 @@ divides k n = rem n k == 0
 seq' :: Int -> Double
 seq' 1 = 3
 seq' 2 = 4
-seq' n = 0.5 * seq' (n-1) + 2 * seq' (n-2)
+seq' n | n > 2= 0.5 * seq' (n-1) + 2 * seq' (n-2)
+       | otherwise = undefined
 
 gcd' :: Integer -> Integer -> Integer
 gcd' a 0 = a
@@ -34,6 +36,6 @@ gcd' a b
   | otherwise = gcd' a (b - a)
 
 (><) :: Int -> Int -> Bool
-a >< b = gcd a b == 1
+a >< b | b > 0 = gcd a b == 1
 
 
