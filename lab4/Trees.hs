@@ -10,7 +10,7 @@ treeSize (Leaf _) = 1
 treeSize (Node _ left right) = 1 + treeSize left + treeSize right
 
 showTree :: (Show a) => Tree a -> String
-showTree Null = "R(())"
+showTree Null = "()"
 showTree (Leaf x) = show x
 showTree (Node x left right) = show x ++ " L(" ++ showTree left ++ ") R(" ++ showTree right ++ ")"
 
@@ -28,3 +28,28 @@ add x (Node y left right)
   | x == y = Node y left right
   | x < y = Node y (add x left) right
   | otherwise = Node y left (add x right)
+
+elemTree :: Ord a => a -> Tree a -> Bool
+elemTree _ Null = False
+elemTree e (Leaf x) = e == x
+elemTree e (Node x left right)
+    | e == x = True
+    | e < x = elemTree e left
+    | otherwise = elemTree e right
+
+countLeaves :: Tree a -> Int
+countLeaves Null = 0
+countLeaves (Leaf _) = 1
+countLeaves (Node _ left right) = countLeaves left + countLeaves right
+
+tree2list :: Tree a -> [a]
+tree2list Null = []
+tree2list (Leaf x) = [x]
+tree2list (Node x left right) = tree2list left ++ [x] ++ tree2list right
+
+list2tree :: [a] -> Tree a
+list2tree [] = Null
+list2tree xs = Node x (list2tree left) (list2tree right)
+  where
+    (left, mid:right) = splitAt (length xs `div` 2) xs
+    x = mid
